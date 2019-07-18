@@ -5,10 +5,8 @@ import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 
 import { withStyles, CircularProgress } from '@material-ui/core';
-import { 
-  HomePageLayout,
-  WeatherForecast
-} from './components';
+import { HomePageLayout } from './components';
+import { WeatherForecast } from '../../components';
 
 import styles from './styles';
 

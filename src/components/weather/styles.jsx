@@ -1,4 +1,4 @@
-const { topbar } = require('../../../../assets/dimens');
+const { topbar } = require('../../assets/dimens');
 
 export default theme => ({
   container: {
