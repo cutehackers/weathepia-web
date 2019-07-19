@@ -34,7 +34,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
-  forecast: PropTypes.object.isRequired,
+  forecast: PropTypes.object,
   isWeatherRequesting: PropTypes.bool.isRequired,
 };
 

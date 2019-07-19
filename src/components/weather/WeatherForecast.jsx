@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles, Grid } from '@material-ui/core';
 
+import DailyWeather from '../daily/DailyWeather';
 import styles from './styles';
 
 /**
@@ -25,7 +26,11 @@ class WeatherForecast extends Component {
     return (
       <Fragment>
         {isValidForecast ? (
-          <div className={classes.contentContainer} />
+          <div className={classes.contentContainer}>
+            <DailyWeather 
+              daily={forecast.daily}
+            />
+          </div>
         ) : (
           <div className={classes.container}>
             <Grid
