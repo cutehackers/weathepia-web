@@ -6,6 +6,12 @@ export default theme => ({
     height: `calc(100vh - ${topbar.height})`,
     marginTop: 'auto',
   },
+  contentContainer: {
+    padding: theme.spacing(3),
+  },
+  title: {
+    fontWeight: 500
+  },
   progress: {
     display: 'block',
     margin: 'auto',

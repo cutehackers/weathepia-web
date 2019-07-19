@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 
-import { withStyles, CircularProgress } from '@material-ui/core';
+import { withStyles, CircularProgress, Typography } from '@material-ui/core';
 import { HomePageLayout } from './components';
 import { WeatherForecast } from '../../components';
 
@@ -14,9 +14,17 @@ import styles from './styles';
  * Home page container component
  */
 class HomePage extends Component {
+  isEmpty = obj => {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  };
+
   render() {
     const { classes } = this.props;
     const { isWeatherRequesting, forecast } = this.props;
+    const isValidForecast = forecast && !this.isEmpty(forecast);
 
     return (
       <HomePageLayout title="Weathepia">
@@ -25,7 +33,17 @@ class HomePage extends Component {
             <CircularProgress className={classes.progress} />
           </div>
         ) : (
-          <WeatherForecast forecast={forecast} />
+          <div className={classes.contentContainer}>
+            {isValidForecast && (
+              <Typography
+                className={classes.title}
+                variant="h3"
+              >
+                {forecast.daily.city_name}
+              </Typography>
+            )}
+            <WeatherForecast forecast={forecast} />
+          </div>
         )}
       </HomePageLayout>
     );

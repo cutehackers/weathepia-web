@@ -2,9 +2,12 @@ import React, { Component, Fragment } from 'react';
 
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import { withStyles, Grid } from '@material-ui/core';
 
+import { Portlet, PortletContent } from 'components';
 import DailyWeather from '../daily/DailyWeather';
 import styles from './styles';
 
@@ -20,17 +23,22 @@ class WeatherForecast extends Component {
   };
 
   render() {
-    const { classes, forecast } = this.props;
+    const { classes, className, forecast } = this.props;
+    const rootClassName = classNames(classes.root, className);
     const isValidForecast = forecast && !this.isEmpty(forecast);
 
     return (
       <Fragment>
         {isValidForecast ? (
-          <div className={classes.contentContainer}>
-            <DailyWeather 
-              daily={forecast.daily}
-            />
-          </div>
+          <Portlet className={rootClassName}>
+            <PortletContent noPadding>
+              <PerfectScrollbar>
+                <DailyWeather 
+                  daily={forecast.daily}
+                />
+              </PerfectScrollbar>
+            </PortletContent>
+          </Portlet>
         ) : (
           <div className={classes.container}>
             <Grid
