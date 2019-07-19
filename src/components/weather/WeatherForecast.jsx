@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid, Divider } from '@material-ui/core';
 
 import { Portlet, PortletContent } from 'components';
+import HourlyWeather from '../hourly/HourlyWeather';
 import DailyWeather from '../daily/DailyWeather';
 import styles from './styles';
 
@@ -33,6 +34,10 @@ class WeatherForecast extends Component {
           <Portlet className={rootClassName}>
             <PortletContent noPadding>
               <PerfectScrollbar>
+                <HourlyWeather
+                  hourly={forecast.hourly}
+                />
+                <Divider />
                 <DailyWeather 
                   daily={forecast.daily}
                 />

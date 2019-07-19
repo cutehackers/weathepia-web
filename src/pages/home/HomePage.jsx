@@ -27,7 +27,7 @@ class HomePage extends Component {
     const isValidForecast = forecast && !this.isEmpty(forecast);
 
     return (
-      <HomePageLayout title="Weathepia">
+      <HomePageLayout title="Weather">
         {isWeatherRequesting ? (
           <div className={classes.container}>
             <CircularProgress className={classes.progress} />
