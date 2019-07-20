@@ -1,7 +1,9 @@
 import { weatherActionTypes } from '../types/weather.types';
 import { weatherService } from '../../services/weather.service';
 
+import { getPlacesByLocation } from './facebook.actions';
 const alertError = require('./alert.actions');
+
 
 export function getForecastByCityName(city) {
   return dispatch => {
@@ -25,6 +27,9 @@ export function getForecastByCityName(city) {
         // });
 
         dispatch(success(response));
+
+        let hourly = response.hourly;
+        dispatch(getPlacesByLocation(hourly.lat, hourly.lon));
       })
       .catch(error => {
         const { message } = error.response.data;

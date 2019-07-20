@@ -9,7 +9,11 @@ export default theme => ({
   contentContainer: {
     padding: theme.spacing(3),
   },
-  title: {
+  cityTitleText: {
+    fontWeight: 500
+  },
+  titleText: {
+    marginTop: theme.spacing(3),
     fontWeight: 500
   },
   progress: {

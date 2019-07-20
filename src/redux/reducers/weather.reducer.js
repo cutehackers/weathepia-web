@@ -23,6 +23,7 @@ export default function weather(state = initialState, action) {
         isWeatherRequesting: false,
         forecast: {}
       };
+      
     case weatherActionTypes.ACTION_WEATHER_FAILURE:
       return {
         isWeatherRequesting: false,

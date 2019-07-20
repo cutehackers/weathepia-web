@@ -12,5 +12,6 @@ module.exports = {
   weatherApiUrl: process.env.REACT_APP_WEATHER_API_URL,
   weatherApiUrlCreate: (path) => {
     return this.weatherApiUrl.concat(path);
-  }
+  },
+  facebookAppId: process.env.REACT_APP_WEATHEPIA_FACEBOOK_APP_ID
 };

@@ -30,6 +30,7 @@ class HourlyWeatherTable extends Component {
         {models.data.map(weather => (
           <Grid
             item
+            key={weather.ts}
             container
             direction="column"
             justify="center"

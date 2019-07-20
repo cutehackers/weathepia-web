@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import compose from 'recompose/compose';
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles, CircularProgress, Typography } from '@material-ui/core';
 import { HomePageLayout } from './components';
-import { WeatherForecast } from '../../components';
+import { WeatherForecast, Places } from '../../components';
 
 import styles from './styles';
 
@@ -22,9 +22,13 @@ class HomePage extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { isWeatherRequesting, forecast } = this.props;
+    const { 
+      classes,
+      isWeatherRequesting, 
+      forecast 
+    } = this.props;
     const isValidForecast = forecast && !this.isEmpty(forecast);
+    const cityName = isValidForecast ? (forecast.hourly.city_name) : null;
 
     return (
       <HomePageLayout title="Weather">
@@ -36,13 +40,24 @@ class HomePage extends Component {
           <div className={classes.contentContainer}>
             {isValidForecast && (
               <Typography
-                className={classes.title}
+                className={classes.cityTitleText}
                 variant="h3"
               >
-                {forecast.daily.city_name}
+                {cityName}
               </Typography>
             )}
             <WeatherForecast forecast={forecast} />
+            {isValidForecast && (
+              <Fragment>
+                <Typography
+                  className={classes.titleText}
+                  variant="h3"
+                >
+                  {'Places'}
+                </Typography>
+                <Places />
+              </Fragment>
+            )}
           </div>
         )}
       </HomePageLayout>
