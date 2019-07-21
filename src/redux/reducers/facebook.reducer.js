@@ -2,7 +2,7 @@ import { facebookActionTypes } from '../types';
 
 const initialState = {
   isFacebookRequesting: false,
-  places: {}
+  places: null
 };
 
 export default function facebook(state = initialState, action) {
@@ -21,7 +21,7 @@ export default function facebook(state = initialState, action) {
     case facebookActionTypes.ACTION_FACEBOOK_PLACE_FAILURE:
       return {
         isFacebookRequesting: false,
-        places: {}
+        places: null
       };
 
     default:

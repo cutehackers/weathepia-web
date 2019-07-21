@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles, CircularProgress, Typography } from '@material-ui/core';
 import { HomePageLayout } from './components';
-import { WeatherForecast, Places } from '../../components';
+import { WeatherForecast, PlaceGridList } from '../../components';
 
 import styles from './styles';
 
@@ -55,9 +55,18 @@ class HomePage extends Component {
                 >
                   {'Places'}
                 </Typography>
-                <Places />
+                <PlaceGridList />
               </Fragment>
             )}
+            {/* <Fragment>
+              <Typography
+                className={classes.titleText}
+                variant="h3"
+              >
+                {'Places'}
+              </Typography>
+              <PlaceGridList />
+            </Fragment> */}
           </div>
         )}
       </HomePageLayout>
