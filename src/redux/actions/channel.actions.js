@@ -17,6 +17,7 @@ export function createWeatherChannel(data) {
       .then(response => {
         dispatch(success(response.data));
 
+        // when it's done successfully, fetch weather channel list
         let user = JSON.parse(localStorage.getItem('user'));
         if (user) {
           dispatch(getWeatherChnnelsByUserId(user.data.id));
@@ -116,6 +117,12 @@ export function deleteWeatherChannelById(id) {
       .deleteWeatherChannelById(id)
       .then(response => {
         dispatch(success(response));
+
+        // when it's done successfully, fetch weather channel list
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+          dispatch(getWeatherChnnelsByUserId(user.data.id));
+        }
       })
       .catch(error => {
         const { message } = error.response.data;
