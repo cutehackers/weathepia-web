@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 // Pages
 import HomePage from './pages/home/HomePage';
 import SignUpPage from './pages/signup/SignUpPage';
+import AdminSignUpPage from './pages/signup/AdminSignUpPage';
 import LoginPage from './pages/login/LoginPage';
 
 export default class Routes extends Component {
@@ -24,6 +25,11 @@ export default class Routes extends Component {
           component={SignUpPage}
           exact
           path="/sign-up"
+        />
+        <Route
+          component={AdminSignUpPage}
+          exact
+          path="/admin/sign-up"
         />
         <Route
           component={LoginPage}

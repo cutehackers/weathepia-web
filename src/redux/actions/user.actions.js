@@ -1,6 +1,7 @@
 import { userActionTypes } from '../types';
 import { userService } from '../../services';
 import { alertSuccess, alertError } from './';
+import { appActionTypes } from '../types/app.types';
 
 export function signUp(user, history) {
   return dispatch => {
@@ -86,11 +87,24 @@ export function login(email, password, history) {
 }
 
 export function logout(history) {
-  userService.logout();
-  if (history) {
-    history.push('/login');
+  return dispatch => {
+    userService.logout();
+
+    dispatch(request());
+    dispatch(resetApp());
+    
+    if (history) {
+      history.push('/login');
+    }
   }
-  return { type: userActionTypes.ACTION_USER_LOGOUT };
+
+  function request() {
+    return { type: userActionTypes.ACTION_USER_LOGOUT };
+  }
+
+  function resetApp() {
+    return { type: appActionTypes.ACTION_APP_RESET_REQUEST };
+  }
 }
 
 export function withdrawal() {}
