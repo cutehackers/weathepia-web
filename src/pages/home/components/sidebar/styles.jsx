@@ -92,5 +92,11 @@ export default theme => ({
   },
   emptyLoginButton: {
     margin: 'auto',
+  },
+  progress: {
+    marginTop: theme.spacing(2),
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 });

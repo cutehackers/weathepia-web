@@ -9,8 +9,16 @@ export default theme => ({
   contentContainer: {
     padding: theme.spacing(3),
   },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   cityTitleText: {
     fontWeight: 500
+  },
+  cityAddButton: {
+    marginLeft: theme.spacing(1)
   },
   titleText: {
     marginTop: theme.spacing(3),

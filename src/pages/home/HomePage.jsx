@@ -4,9 +4,19 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 
-import { withStyles, CircularProgress, Typography } from '@material-ui/core';
+import { 
+  withStyles, 
+  CircularProgress, 
+  Typography,
+  IconButton 
+} from '@material-ui/core';
+import { 
+  AddCircleOutlined as AddCircleIcon
+} from '@material-ui/icons';
+
 import { HomePageLayout } from './components';
 import { WeatherForecast, PlaceGridList } from '../../components';
+import { createWeatherChannel } from '../../redux/actions/channel.actions';
 
 import styles from './styles';
 
@@ -21,6 +31,20 @@ class HomePage extends Component {
     return true;
   };
 
+  handleAddCityClick = () => {
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    const { dispatch, forecast } = this.props;
+
+    const isValidForecast = forecast && !this.isEmpty(forecast);
+    if (isValidForecast) {
+      dispatch(createWeatherChannel({
+        uid: user.data.id,
+        city: forecast.hourly.city_name
+      }));
+    }
+  }
+
   render() {
     const { 
       classes,
@@ -29,6 +53,8 @@ class HomePage extends Component {
     } = this.props;
     const isValidForecast = forecast && !this.isEmpty(forecast);
     const cityName = isValidForecast ? (forecast.hourly.city_name) : null;
+
+    const { isAuthenticated } = this.props;
 
     return (
       <HomePageLayout title="Weather">
@@ -39,12 +65,23 @@ class HomePage extends Component {
         ) : (
           <div className={classes.contentContainer}>
             {isValidForecast && (
-              <Typography
-                className={classes.cityTitleText}
-                variant="h3"
-              >
-                {cityName}
-              </Typography>
+              <div className={classes.titleContainer}>
+                <Typography
+                  className={classes.cityTitleText}
+                  variant="h3"
+                >
+                  {cityName}
+                </Typography>
+                {isAuthenticated && (
+                  <IconButton
+                    className={classes.cityAddButton}
+                    onClick={this.handleAddCityClick}
+                    variant="text"
+                  >
+                    <AddCircleIcon />
+                  </IconButton>
+                )}
+              </div>
             )}
             <WeatherForecast forecast={forecast} />
             {isValidForecast && (
@@ -58,15 +95,6 @@ class HomePage extends Component {
                 <PlaceGridList />
               </Fragment>
             )}
-            {/* <Fragment>
-              <Typography
-                className={classes.titleText}
-                variant="h3"
-              >
-                {'Places'}
-              </Typography>
-              <PlaceGridList />
-            </Fragment> */}
           </div>
         )}
       </HomePageLayout>
@@ -76,14 +104,19 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   forecast: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
   isWeatherRequesting: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
+  const { isAuthenticated } = state.authorization;
   const { isWeatherRequesting, forecast } = state.weather;
   return {
-    isWeatherRequesting, forecast
+    isWeatherRequesting, 
+    forecast,
+    isAuthenticated
   };
 }
 

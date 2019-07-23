@@ -14,18 +14,34 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography
+  Typography,
+  CircularProgress
 } from '@material-ui/core';
 
 import { 
   LocationCityOutlined as LocationCityIcon,
   PlaylistAdd as PlaylistAddIcon
 } from '@material-ui/icons';
-import { RefForwardNavLink } from '../RefForwardNavLink';
+import { getWeatherChnnelsByUserId } from '../../../../redux/actions/channel.actions';
 
 import styles from './styles';
 
 class Sidebar extends Component {
+  isEmpty = obj => {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  };
+
+  componentWillMount() {
+    const { dispatch } = this.props;
+
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      dispatch(getWeatherChnnelsByUserId(user.data.id));
+    }
+  }
 
   getAvartarDisplayName = user => {
     return user
@@ -39,11 +55,16 @@ class Sidebar extends Component {
     history.push('/login');
   }
 
+  handleCityClick = (city) => {
+    console.log(`handleCityClick clicked: ${city}`);
+  }
+
   render() {
     const { classes, className } = this.props;
     const rootClassName = classNames(classes.root, className);
 
-    const { isAuthenticated, user } = this.props;
+    const { isAuthenticated, user, isChannelRequesting, channels } = this.props;
+    const isValidChannel = channels && !this.isEmpty(channels);
 
     return (
       <nav className={rootClassName}>
@@ -61,11 +82,9 @@ class Sidebar extends Component {
           // user's sidebar menu view
           <Fragment>
             <div className={classes.profile}>
-              <Link to="/account">
-                <Avatar className={classes.avatar}>
-                  {this.getAvartarDisplayName(user)}
-                </Avatar>
-              </Link>
+              <Avatar className={classes.avatar}>
+                {this.getAvartarDisplayName(user)}
+              </Avatar>
               <Typography className={classes.nameText} variant="h6">
                 {user.firstName}
               </Typography>
@@ -74,131 +93,46 @@ class Sidebar extends Component {
               </Typography>
             </div>
             <Divider className={classes.profileDivider} />
-            <List component="div" disablePadding>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={RefForwardNavLink}
-                to="/dashboard">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Dashboard"
-                />
-              </ListItem>
-              {/* <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/users">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Users"
-                />
-              </ListItem>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/products">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Products"
-                />
-              </ListItem>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/login">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Authentication"
-                />
-              </ListItem>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/typography">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Typography"
-                />
-              </ListItem>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/icons">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Icons and Images"
-                />
-              </ListItem>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/account">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Account"
-                />
-              </ListItem>
-              <ListItem
-                activeClassName={classes.activeListItem}
-                className={classes.listItem}
-                component={NavLink}
-                to="/settings">
-                <ListItemIcon className={classes.listItemIcon}>
-                  <LocationCityIcon />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{ primary: classes.listItemText }}
-                  primary="Settings"
-                />
-              </ListItem> */}
-            </List>
+            {isChannelRequesting ? (
+              <CircularProgress className={classes.progress} />
+            ) : (
+              <Fragment>
+                {isValidChannel && (
+                  <List component="div" disablePadding>
+                    {channels.data.map(channel => (
+                      <ListItem button
+                        className={classes.listItem}
+                        key={channel.id}
+                        onClick={() => {this.handleCityClick(channel.city)}}
+                      >
+                        <ListItemIcon className={classes.listItemIcon}>
+                          <LocationCityIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          classes={{ primary: classes.listItemText }}
+                          primary={channel.city}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
+              </Fragment>
+            )}
           </Fragment>
         ) : (
           // empty view
           <Fragment>
             <div className={classes.emptyRoot}>
-              <Grid 
+              <Grid
                 alignItems="center"
                 className={classes.emptyContainer}
-                container 
+                container
                 direction="column"
-                justify="center"
-              >
-                <Grid 
-                  item
-                >
+                justify="center">
+                <Grid item>
                   <IconButton
                     className={classes.emptyLoginButton}
-                    onClick={this.handleLoginClick}
-                  >
+                    onClick={this.handleLoginClick}>
                     <PlaylistAddIcon />
                   </IconButton>
                 </Grid>
@@ -214,16 +148,22 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  isChannelRequesting: PropTypes.bool.isRequired,
+  channels: PropTypes.object,
 };
 
 function mapStateToProps(state) {
   const { isAuthenticated, user } = state.authorization;
+  const { isChannelRequesting, channels } = state.channel;
   return {
     isAuthenticated,
-    user
+    user,
+    isChannelRequesting,
+    channels
   };
 }
 
