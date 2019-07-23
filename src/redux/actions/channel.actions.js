@@ -25,6 +25,7 @@ export function createWeatherChannel(data) {
       })
       .catch(error => {
         // const { statusCode, message }
+        
         const { message } = error.response.data;
 
         // switch (statusCode) {
@@ -77,7 +78,7 @@ export function getWeatherChnnelsByUserId(userId) {
         dispatch(success(response));
       })
       .catch(error => {
-        const { message } = error.response.data;
+        const { message } = error;
         dispatch(failure(message));
         dispatch(alertError(message));
       })

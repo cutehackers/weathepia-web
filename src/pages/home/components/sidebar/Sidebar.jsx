@@ -44,7 +44,6 @@ class Sidebar extends Component {
     const { dispatch } = this.props;
 
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log(`sidebar> ${JSON.stringify(user)}`);
     if (user) {
       dispatch(getWeatherChnnelsByUserId(user.data.id));
     }
