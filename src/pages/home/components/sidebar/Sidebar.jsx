@@ -24,6 +24,7 @@ import {
 } from '@material-ui/icons';
 import { getWeatherChnnelsByUserId } from '../../../../redux/actions/channel.actions';
 
+import { getForecastByCityName } from '../../../../redux/actions/weather.actions';
 import styles from './styles';
 
 class Sidebar extends Component {
@@ -57,6 +58,9 @@ class Sidebar extends Component {
 
   handleCityClick = (city) => {
     console.log(`handleCityClick clicked: ${city}`);
+    
+    const { dispatch } = this.props;
+    dispatch(getForecastByCityName(city));
   }
 
   render() {
