@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import classNames from 'classnames';
@@ -15,6 +15,7 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
+  ListItemIcon,
   Typography,
   CircularProgress
 } from '@material-ui/core';
@@ -22,7 +23,8 @@ import {
 import { 
   LocationCityOutlined as LocationCityIcon,
   PlaylistAdd as PlaylistAddIcon,
-  DeleteOutline as DeleteIcon 
+  DeleteOutline as DeleteIcon ,
+  AssignmentOutlined as AssignmentIcon
 } from '@material-ui/icons';
 import { 
   getWeatherChnnelsByUserId,
@@ -62,7 +64,12 @@ class Sidebar extends Component {
   }
 
   handleCityClick = (city) => {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
+    const {pathname} = this.props.location;
+    
+    if (pathname !== '/home') {
+      history.push('/home');
+    }
     dispatch(getForecastByCityName(city));
   }
 
@@ -104,6 +111,23 @@ class Sidebar extends Component {
                 {user.lastName}
               </Typography>
             </div>
+            <Divider className={classes.profileDivider} />
+            <List component="div" disablePadding>
+              <ListItem
+                activeClassName={classes.activeListItem}
+                className={classes.listItem}
+                component={NavLink}
+                to="/article"
+              >
+                <ListItemIcon className={classes.listItemIcon}>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText
+                  classes={{ primary: classes.listItemText }}
+                  primary="Article"
+                />
+              </ListItem>
+            </List>
             <Divider className={classes.profileDivider} />
             {isChannelRequesting ? (
               <CircularProgress className={classes.progress} />
@@ -180,6 +204,7 @@ Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  location: PropTypes.object,
   isAuthenticated: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   isChannelRequesting: PropTypes.bool.isRequired,

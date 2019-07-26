@@ -8,13 +8,14 @@ import {
   withStyles, 
   CircularProgress, 
   Typography,
-  IconButton 
+  IconButton
 } from '@material-ui/core';
+
 import { 
   AddCircleOutlined as AddCircleIcon
 } from '@material-ui/icons';
 
-import { HomePageLayout } from './components';
+import { HomePageLayout } from '../../layout/home';
 import { WeatherForecast, PlaceGridList } from '../../components';
 import { createWeatherChannel } from '../../redux/actions/channel.actions';
 

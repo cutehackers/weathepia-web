@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
 import HomePage from './pages/home/HomePage';
+import ArticlePage from './pages/article/ArticlePage';
 import SignUpPage from './pages/signup/SignUpPage';
 import AdminSignUpPage from './pages/signup/AdminSignUpPage';
 import LoginPage from './pages/login/LoginPage';
@@ -20,6 +21,11 @@ export default class Routes extends Component {
           component={HomePage} 
           exact 
           path="/home" 
+        />
+        <Route
+          component={ArticlePage}
+          exact
+          path="/article"
         />
         <Route
           component={SignUpPage}

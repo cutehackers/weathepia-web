@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 
 import { Drawer, withStyles, withWidth } from '@material-ui/core';
-import { Sidebar, Topbar } from '../../components';
+import { Sidebar, Topbar } from '.';
 import styles from './styles';
 
 /**
