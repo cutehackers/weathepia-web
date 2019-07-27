@@ -156,7 +156,7 @@ class ArticlePage extends Component {
 ArticlePage.propTypes = {
   classes: PropTypes.object.isRequired,
   isArticleRequesting: PropTypes.bool.isRequired,
-  articles: PropTypes.object,
+  articles: PropTypes.array,
 };
 
 function mapStateToProps(state) {

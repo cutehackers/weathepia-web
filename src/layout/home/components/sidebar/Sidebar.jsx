@@ -32,6 +32,7 @@ import {
 } from '../../../../redux/actions/channel.actions';
 
 import { getForecastByCityName } from '../../../../redux/actions/weather.actions';
+import { RefForwardNavLink} from '../../../../components/RefForwardNavLink';
 import styles from './styles';
 
 class Sidebar extends Component {
@@ -116,7 +117,7 @@ class Sidebar extends Component {
               <ListItem
                 activeClassName={classes.activeListItem}
                 className={classes.listItem}
-                component={NavLink}
+                component={RefForwardNavLink}
                 to="/article"
               >
                 <ListItemIcon className={classes.listItemIcon}>
@@ -136,19 +137,6 @@ class Sidebar extends Component {
                 {isValidChannel && (
                   <List component="div" disablePadding>
                     {channels.data.map(channel => (
-                      // <ListItem button
-                      //   className={classes.listItem}
-                      //   key={channel.id}
-                      //   onClick={() => {this.handleCityClick(channel.city)}}
-                      // >
-                      //   <ListItemIcon className={classes.listItemIcon}>
-                      //     <LocationCityIcon />
-                      //   </ListItemIcon>
-                      //   <ListItemText
-                      //     classes={{ primary: classes.listItemText }}
-                      //     primary={channel.city}
-                      //   />
-                      // </ListItem>
                       <ListItem button
                         className={classes.listItem}
                         key={channel.id}
@@ -162,8 +150,12 @@ class Sidebar extends Component {
                           primary={channel.city}
                         />
                         <ListItemSecondaryAction>
-                          <IconButton edge="end" aria-label="Delete">
-                            <DeleteIcon onClick={() => {this.handleDeleteCityClick(channel.id)}} />
+                          <IconButton 
+                            edge="end" 
+                            aria-label="Delete"
+                            onClick={() => {this.handleDeleteCityClick(channel.id)}} 
+                          >
+                            <DeleteIcon />
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>

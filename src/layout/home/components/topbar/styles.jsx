@@ -16,7 +16,7 @@ export default theme => ({
     width: '100%'
   },
   title: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing(1)
   },
   search: {
     position: 'relative',
@@ -48,9 +48,9 @@ export default theme => ({
     width: '100%'
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(7),
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -65,6 +65,6 @@ export default theme => ({
     marginLeft: 'auto'
   },
   signOutButton: {
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing(1)
   }
 });

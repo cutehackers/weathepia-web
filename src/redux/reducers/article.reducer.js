@@ -2,7 +2,7 @@ import { articleActionTypes } from '../types';
 
 const initialState = {
   isArticleRequesting: false,
-  articles: {}
+  articles: []
 };
 
 export default function articles(state = initialState, action) {
