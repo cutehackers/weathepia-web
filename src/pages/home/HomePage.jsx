@@ -35,6 +35,8 @@ class HomePage extends Component {
   handleAddCityClick = () => {
     let user = JSON.parse(localStorage.getItem('user'));
 
+    console.log(`darby> user: ${JSON.stringify(user)}`);
+
     const { dispatch, forecast } = this.props;
 
     const isValidForecast = forecast && !this.isEmpty(forecast);

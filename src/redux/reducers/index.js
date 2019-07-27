@@ -8,6 +8,7 @@ import authorization from './authorization.reducer';
 import weather from './weather.reducer';
 import facebook from './facebook.reducer';
 import channel from './channel.reducer';
+import articles from './article.reducer';
 
 const appReducer = combineReducers({
   alert,
@@ -15,7 +16,8 @@ const appReducer = combineReducers({
   authorization,
   weather,
   facebook,
-  channel
+  channel,
+  articles
 });
 
 const rootReducer = (state, action) => {
