@@ -8,6 +8,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "heroku-prebuild": "yarn add --dev eslint prettier-eslint-cli prettier-eslint eslint-config-prettier eslint-plugin-prettier",
     "heroku-postbuild": "npm run build"
   },
   "browserslist": {
