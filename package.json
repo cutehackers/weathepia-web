@@ -34,7 +34,7 @@
     "eslint-plugin-react": "^7.14.3",
     "history": "^4.7.2",
     "load-script": "^1.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.1",
     "qs": "^6.7.0",
